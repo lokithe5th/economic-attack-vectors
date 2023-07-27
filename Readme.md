@@ -7,10 +7,10 @@ This repository serves to contain the fundamentals of attacks on smart contracts
 The Turing-completeness of Solidity allows for almost any program to be built on top of an EVM blockchain. These applications can be anything from simple tokens to DAOs. Smart contracts and economics are intertwined at the code-level.  
 
 ### A note to readers:
-You are welcome to ask questions about any of the material in this repo. If you spot a mistake or feel that I haven't attributed a source feel free to reach out, you can find me at @lourenslinde on twitter. This is a repository of my own knowledge, which is not static. Smart contracts and the microeconomic models built into the code are incredibly fascinating and the thoughts contained herein are likely to evolve as my understanding of the subject matter expands. 
+You are welcome to ask questions about any of the material in this repo. If you spot a mistake or feel that I haven't attributed a source, feel free to reach out, you can find me at @lourenslinde on twitter. This is a repository of my own knowledge, which is not static. Smart contracts and the microeconomic models built into the code are incredibly fascinating and the thoughts contained herein are likely to evolve as my understanding of the subject matter expands. 
 
 ## Method
-The approach will be to review the current economic fundamentals in use in various protocols, then we will isolate the generalized economic attack vectors which are used to target smart contracts. From generalized vectors we will dig into specific examples of vulnerabilities and how the intended economics and the implemented code combined to create the vulnerability. 
+The approach will be to review the current economic fundamentals in use in various protocols, then we will isolate the generalized economic attack vectors which are used to target smart contracts. From generalized vectors we will dig into specific examples of vulnerabilities and how the intended economics and the implemented code combined to create the vulnerability. But, the approach is to apply first principles thinking by keeping explanations simple.
 
 
 ## Outline  
