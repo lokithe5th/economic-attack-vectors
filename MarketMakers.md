@@ -1,4 +1,4 @@
-### 1. Market Makers  
+## 1. Market Makers  
 
 A sale is when one asset is swapped for another asset. We swap our time (labour) for money. We swap our money for shares. And sometimes we swap the right to these shares for the privilige of borrowing other assets.  
 
@@ -10,7 +10,7 @@ Markets follow supply and demand. If the supply of an asset is low, and there ar
 
 Price discovery happens as the prices being offered and accepted converge. Given a fixed supply and a fixed demand the price will at some point in time become more balanced. We know that supply and demand is not fixed. And so price varies as the market receives more information and reacts to that information (for example XRP before and after July 2023).  
 
-#### Order books  
+### Order books  
 Markets is where buyers and sellers meet. In TradFi we use order books to match the buyers with sellers.
 
 A buyer will open an order for 100 asset X in exchange for 10 asset Y. The seller can only sell if there is someone else taking the buy side. The buyer can only purchase asset Y if there is someone else who wants it at that price.  
@@ -19,11 +19,11 @@ Order books are also used in centralized exchanges (CEXes), both in TradFi and D
 
 Depending on the asset, orders can take some time to fill. They may also fail. 
 
-As the market is not static, it price may move in either parties favor. 
+As the market is not static, it price may move in either party's favor. 
 
 > Swapping is a zero-sum game, and so, if one party is favored the other party is at a disadvantage. This is fundamental to all markets.
 
-#### AMMs  
+### AMMs  
 An automated market maker (AMM) means that a smart contract can play the role of willing buyer or willing seller in any swap transaction. This eliminates the issue of making a market (spoiler alert: it creates a different issue).  
 
 An AMM uses an invariant to determine the current swap price for the assets in the pool.  
@@ -41,7 +41,7 @@ Where:
 
 [There is a highly recommended article about AMMs here](https://medium.com/gammaswap-labs/uniswap-v2-a-constant-function-market-maker-78317ea6d4ac)  
 
-The reserves of `x` and `y` are provided by users who are not using their `x` and `y` assets at the moment. By providing liquidity they create a pool of assets in the smart contract. Other users can then swap asset `x` for `y` at the rate determined by `k = xy`. Price discovery happens over time while swaps trend in one direction. But the initial supply of liquidity to the pool determins the swap price. The liquidity providers are rewarded for providing their assets by receiving fees from the swaps. This is similar to what banks do with customer money sitting in savings accounts. They take risks (trades, swaps, investments) with it and then reward you for providing capital with interest.  
+The reserves of `x` and `y` are provided by users who are not using their `x` and `y` assets at the moment. By providing liquidity they create a pool of assets in the smart contract. Other users can then swap asset `x` for `y` at the rate determined by `k = xy`. Price discovery happens over time when swaps trend in one direction. But the initial supply of liquidity to the pool determines the swap price. The liquidity providers are rewarded for providing their assets by receiving fees from the swaps. This is similar to what banks do with customer money sitting in savings accounts. They take risks (trades, swaps, investments) with it and then reward you for providing capital with interest.  
 
 This is a primitive in DeFi.  
 
@@ -49,7 +49,7 @@ The design and implementation of an AMM can vary widely. The two most common are
 
 ![Figure from: Mohan, V. Automated market makers and decentralized exchanges: a DeFi primer. Financ Innov 8, 20 (2022). https://doi.org/10.1186/s40854-021-00314-5]()
 
-#### Constant Product AMMs  
+### Constant Product AMMs  
 A common example of a CPMM is classic Uniswap. The [V2](https://github.com/Uniswap/v2-core/blob/master/contracts/UniswapV2Pair.sol) Pair (the pool where the tokens are held for swaps) code looks like this:  
 
 ```
@@ -84,8 +84,29 @@ A common example of a CPMM is classic Uniswap. The [V2](https://github.com/Unisw
     }
 ```
 
-A usual design will be a Router contract which should call the `swap` function in the pair contract. Users interacting with the pair contract directly risk losing funds as the intended access point is a router contract. 
+A usual design will be a Router contract which should call the `swap` function in the pair contract. Users interacting with the pair contract directly risk losing funds as the intended access point is a router contract. An example of a `router` can be found in the [V2 periphery repo](https://github.com/Uniswap/v2-periphery/blob/master/contracts/UniswapV2Router02.sol):  
 
+```
+    function swapExactTokensForTokens(
+        uint amountIn,
+        uint amountOutMin,
+        address[] calldata path,
+        address to,
+        uint deadline
+    ) external override ensure(deadline) returns (uint[] memory amounts) {
+        amounts = UniswapV2Library.getAmountsOut(factory, amountIn, path);
+        require(amounts[amounts.length - 1] >= amountOutMin, 'UniswapV2Router: INSUFFICIENT_OUTPUT_AMOUNT');
+        TransferHelper.safeTransferFrom(path[0], msg.sender, UniswapV2Library.pairFor(factory, path[0], path[1]), amounts[0]);
+        _swap(amounts, path, to);
+    }
+```
+
+Can you see where the check for the invariant is?  
+
+It is located in the `pair` contract in this line:  
+`require(balance0Adjusted.mul(balance1Adjusted) >= uint(_reserve0).mul(_reserve1).mul(1000**2), 'UniswapV2: K');`  
+
+The expression is that we require the following to hold true: `balance0Adjusted * balance1Adjusted >= reserve0 * reserve1`. The manipulation of the reserves by adding asymmetrically is explicitly accepted, as `k = reserve0 * reserve1`, and the code enforces that the new balances (excluding newly transferred funds) continues to hold at least the `k`. 
 
 ##### Thoughts for security researchers  
 From a security perspective we see that such a design allows certain actions:  
@@ -95,16 +116,16 @@ From a security perspective we see that such a design allows certain actions:
 This is intended, as swaps in one direction is not separate from large deposits in one direction. In both cases the reserves of an asset are altered and the price will move in favor of buyers for the asset being supplied and vice versa (see the above on supply and demand).  
 
 From experience, after spending many hours of bug hunting trying to trick AMMs into giving better prices the following holds true:  
-1. In most cases, it's rarely a valid issue if the reserves/price can be manipulated by a user. The attacker needs to spend resources to accoplish the manipulation, and the implementation of the AMMs serve to limit the benefit from this. In most cases they will lose assets, even if they can manipulate the price. 
+1. In most cases, it's rarely a valid issue if the reserves/price can be manipulated by a user. The attacker needs to spend resources to accoplish the manipulation, and the implementation of the AMMs serve to limit the benefit from this. In most cases they will lose assets, even if they can manipulate the price. If you can prove the contrary, you most likely have a valid vulnerability.
 2. Vulnerabilities can arise when the price in the AMM is used in other places in the protocol. Always identify which new code *assumes* an unmanipulated price.
 3. Custom logic in `routers` and `pair` contracts often hide vulnerabilities.
 
-#### Constant Sum AMMs  
+### Constant Sum AMMs  
 
-#### Exploits
+### Exploits
 
-##### Price Manipulation  
+#### Price Manipulation  
 
-##### Poorly designed AMMs  
+#### Poorly designed AMMs  
 
-##### Front-running  
+#### Front-running  
