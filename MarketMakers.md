@@ -47,7 +47,7 @@ This is a primitive in DeFi.
 
 The design and implementation of an AMM can vary widely. The two most common are constant product AMMs and constant sum AMMs. [There is a brilliant article about AMMs here](https://link.springer.com/article/10.1186/s40854-021-00314-5)
 
-![Figure from: Mohan, V. Automated market makers and decentralized exchanges: a DeFi primer. Financ Innov 8, 20 (2022). https://doi.org/10.1186/s40854-021-00314-5]()
+![Figure from: Mohan, V. Automated market makers and decentralized exchanges: a DeFi primer. Financ Innov 8, 20 (2022). https://doi.org/10.1186/s40854-021-00314-5](https://link.springer.com/article/10.1186/s40854-021-00314-5/figures/1)
 
 ### Constant Product AMMs  
 A common example of a CPMM is classic Uniswap. The [V2](https://github.com/Uniswap/v2-core/blob/master/contracts/UniswapV2Pair.sol) Pair (the pool where the tokens are held for swaps) code looks like this:  
