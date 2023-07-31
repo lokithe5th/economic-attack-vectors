@@ -50,7 +50,7 @@ The design and implementation of an AMM can vary widely. The two most common are
 ![Figure from: Mohan, V. Automated market makers and decentralized exchanges: a DeFi primer. Financ Innov 8, 20 (2022). https://doi.org/10.1186/s40854-021-00314-5](https://link.springer.com/article/10.1186/s40854-021-00314-5/figures/1)
 
 ### Constant Product AMMs  
-A common example of a CPMM is classic Uniswap. The [V2](https://github.com/Uniswap/v2-core/blob/master/contracts/UniswapV2Pair.sol) Pair (the pool where the tokens are held for swaps) code looks like this:  
+A common example of a CPMM is classic Uniswap (not V3). The [V2](https://github.com/Uniswap/v2-core/blob/master/contracts/UniswapV2Pair.sol) Pair (the pool where the tokens are held for swaps) code looks like this:  
 
 ```
  function swap(uint amount0Out, uint amount1Out, address to, bytes calldata data) external lock {
@@ -140,10 +140,12 @@ In a scenario where there is a CPMM and a CSMM, a trader will be able to swap in
 
 **TO DO**: Let's show the code and rubber duck a scenario here.  
 
-### Exploits
+### Hybrid Models  
+Curve uses a hybrid model. We know, of course, that it's undesirable to have a liquidity pool completely drained. On the other hand, it is also undesirable for swap pricing to move with every swap, especially if there assets are expected to be 1:1 in value.  
 
-#### Price Manipulation  
+> Please note my explanation is greatly simplified here.
 
-#### Poorly designed AMMs  
+Curve combines these two approaches to create an AMM which uses the arithmetic and geometric means to derive a price which is less prone to slippage within certain parameters but with enough price movement when approaching the hyperbola limits that it is not efficient to drain the pool.  
 
-#### Front-running  
+The math here can become intimidating. [The Curve (StableSwap) whitepaper is the best place to start](https://curve.fi/#/ethereum/pools/files/stableswap-paper.pdf/)  
+
