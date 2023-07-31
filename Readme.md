@@ -14,10 +14,11 @@ The approach will be to review the current economic fundamentals in use in vario
 
 
 ## Outline  
-
 Most econonmic vulnerabilities arise from code errors introduced when a developer tries translate an economic objective into the smart contract. Market design and token economics go hand in hand. There is an art to translating economics (or any other abstract idea) from paper to code; this art is where Solidity developers thrive. But artists strive toward perfection and yet rarely achieve it. We can assume developers (like me) while striving for perfection, will also fall short at times. Although this repo will not focus on market and token economic design specifically, it may investigate cases where such design in and of itself led to vulnerabilities.  
 
-We start our journey by investigating the basic financial primitives decentralized finance is built on and we expand on the topic as we dig deeper into the code. The choice to start with a primitive and detail the topic through to an exploit is made to make for less cumbersome reading. The intentional choice is to carry the the thread through from primitive to at least one exploit which is purely the result of a misimplemented primitive. This should allow a reader to get up to speed quickly on a vulnerability, without having to refer to distant sections.  
+We start our journey by investigating the basic financial primitives decentralized finance is built on and we expand on the topic as we dig deeper into the code.  
+
+> Writing helps me to clarify my thinking. This repo is a way to maintain a grip on the fundamentals as I research, audit and reflect. As I gain experience I might add/rewrite/remove entire sections. 
 
 1. Market Makers  
 2. Lending  
