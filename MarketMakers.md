@@ -13,13 +13,13 @@ Price discovery happens as the prices being offered and accepted converge. Given
 ### Order books  
 Markets is where buyers and sellers meet. In TradFi we use order books to match the buyers with sellers.
 
-A buyer will open an order for 100 asset X in exchange for 10 asset Y. The seller can only sell if there is someone else taking the buy side. The buyer can only purchase asset Y if there is someone else who wants it at that price.  
+A buyer will open an order for 100 asset X in exchange for 10 asset Y. The seller can only sell if there is someone else taking the buy side. The buyer can only purchase asset Y if there is someone else who wants to sell it at that price.  
 
 Order books are also used in centralized exchanges (CEXes), both in TradFi and DeFi.  
 
 Depending on the asset, orders can take some time to fill. They may also fail. 
 
-As the market is not static, it price may move in either party's favor. 
+As the market is not static, a price may move in either party's favor. 
 
 > Swapping is a zero-sum game, and so, if one party is favored the other party is at a disadvantage. This is fundamental to all markets.
 
@@ -106,7 +106,7 @@ Can you see where the check for the invariant is?
 It is located in the `pair` contract in this line:  
 `require(balance0Adjusted.mul(balance1Adjusted) >= uint(_reserve0).mul(_reserve1).mul(1000**2), 'UniswapV2: K');`  
 
-The expression is that we require the following to hold true: `balance0Adjusted * balance1Adjusted >= reserve0 * reserve1`. The manipulation of the reserves by adding asymmetrically is explicitly accepted, as `k = reserve0 * reserve1`, and the code enforces that the new balances (excluding newly transferred funds) continues to hold at least the `k`. 
+The expression is that we require the following to hold true: `balance0Adjusted * balance1Adjusted >= reserve0 * reserve1`. The manipulation of the reserves by adding asymmetrically is explicitly accepted, as `k = reserve0 * reserve1`, and the code enforces that the new balances (excluding newly transferred funds) continues to hold *at least* the `k`. 
 
 ##### Thoughts for security researchers  
 From a security perspective we see that such a design allows certain actions:  
