@@ -122,6 +122,24 @@ From experience, after spending many hours of bug hunting trying to trick AMMs i
 
 ### Constant Sum AMMs  
 
+CSMMs express `k` as: `k = x + y`  
+
+Take some time to think about how this would impact a liquidity pool?  
+
+The first thing to notice: the price does not respond in the same way.  
+
+A CPMM's price changes as it moves along the hyperbola. As the reserves of the assets approach a limit the price becomes greatly increased. 
+
+The CSMM, in contrast, offers constant pricing for swaps, which is especially desirable for like-priced assets (USDC:DAI). 
+
+The caveat to this is that it is possible to drain the reserves of an asset in a pool. In fact, for volatile assets it is likely to be drained by arbitrage activity.  
+
+Why? The price difference offered between different pools.  
+
+In a scenario where there is a CPMM and a CSMM, a trader will be able to swap into one asset with reduced price impact during the swap on the CSMM. Practically this means that the trader will receive more of token X for a swap from Y --> X for any given amount of Y. Where there is a price difference an arbitrage opportunity will exist, which WILL be exploited.  
+
+**TO DO**: Let's show the code and rubber duck a scenario here.  
+
 ### Exploits
 
 #### Price Manipulation  
