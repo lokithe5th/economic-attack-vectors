@@ -1,4 +1,4 @@
-## Lending  
+## 2. Lending  
 
 Lending is as integral to DeFi as it is to TradFi.  
 
@@ -63,5 +63,5 @@ What would happen if the price of ether suddenly fell 60%? If the protocol sold 
 
 #### Thoughts for security researchers  
 
-1. From the above we can determine that the borrow and liquidation collateral factors (or a specific protocol's variation on this) is of paramount importance. If an attacker can manipulate these factors the protocol may leak value.  
+1. From the above we can determine that the borrow and liquidation collateral factors (or a protocol's variation on this) is of paramount importance. If an attacker can manipulate these factors the protocol may leak value.  
 2. The collateral factors are based on asset price. `PriceFeeds` are crucial to a lending market. 
