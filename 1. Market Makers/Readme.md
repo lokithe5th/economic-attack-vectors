@@ -1,4 +1,4 @@
-## Market Makers  
+## 1. Market Makers  
 
 A sale is when one asset is swapped for another asset. We swap our time (labour) for money. We swap our money for shares. And sometimes we swap the right to these shares for the privilige of borrowing other assets.  
 
