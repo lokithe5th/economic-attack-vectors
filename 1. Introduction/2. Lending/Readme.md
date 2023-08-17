@@ -8,4 +8,4 @@ Lending can be decentralized because users have to provide more collateral than 
 
 How can this be useful to a user? By depositing assets into a protocol the depositor is able to maintain exposure to that asset, while still being able to borrow a less volatile asset to conduct business in.  
 
-The concept of leverage is fundamental to finance, and this is one of the primitives required for this to function.  
+The concept of leverage is fundamental to finance, and this is one of the primitives required for DeFi to function.  
