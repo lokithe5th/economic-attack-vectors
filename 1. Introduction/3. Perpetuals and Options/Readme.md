@@ -22,4 +22,10 @@ The price where an asset crosses from ITM to OTM, or vice versa, is called the s
 
 > A perpetual is the same agreement, but without an expiry date.  
 
+Options and perpetuals allow: 
+- hedging: reducing risk by guarding against unanticipated market movements  
+- speculation: making a bet that price will move in a certain direction  
+
+> Beware: options and Perpetuals magnify market movements.  
+
 Of course, it's a little more complicated than that. Let's dive in!
