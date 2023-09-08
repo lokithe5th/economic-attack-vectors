@@ -1,4 +1,4 @@
-## Perpetuals and Options  
+## 3. Perpetuals and Options  
 
 These are financial derivative contracts.  
 
